@@ -28,6 +28,16 @@ class BankApp extends React.Component {
                     <button onClick={this.handleWithdraw.bind(this)}>Withdraw</button>
                     <button onClick={this.handleDeposit.bind(this)}>Deposit</button>
                 </div>
+
+                <div className="info" onClick={this.props.onToggle}>
+                    <strong>Exchange Rates:</strong>
+                    <div className={this.props.showInfo ? 'info--visible' : 'info--closed'}>
+                        <strong>$1 USD =</strong>
+                        <span className="rate">0.9990 EUR</span>
+                        <span className="rate">0.7989 GBP</span>
+                        <span className="rate">710.15 JPY</span>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -36,12 +46,15 @@ class BankApp extends React.Component {
 BankApp.propTypes = {
     balance: PropTypes.number,
     onDeposit: PropTypes.func,
-    onWithdraw: PropTypes.func
+    onWithdraw: PropTypes.func,
+    onToggle: PropTypes.func,
+    showInfo: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        balance: state.balance
+        balance: state.balance,
+        showInfo: state.ui.showInfo,
     }
 }
 
@@ -53,6 +66,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onWithdraw: (amount) => {
             dispatch(bankActionCreators.withdrawFromAccount(amount))
         },
+        onToggle: () => {
+            dispatch(bankActionCreators.toggleInfo())
+        }
     }
 }
 

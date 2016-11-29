@@ -13,6 +13,12 @@ const bankActionCreators = {
             type: constants.WITHDRAW_FROM_ACCOUNT,
             amount: amount
         };
+    },
+
+    toggleInfo() {
+        return {
+            type: constants.TOGGLE_INFO
+        };
     }
 }
 
